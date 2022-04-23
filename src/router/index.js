@@ -160,6 +160,28 @@ export const constantRoutes = [
     ]
   },
 
+  {
+    path: '/csgl',
+    component: Layout,
+    redirect: '/csgl/table',
+    name: 'Csgl',
+    meta: { title: 'Csgl', icon: 'el-icon-tickets' },
+    children: [
+      {
+        path: 'csrwzx',
+        name: 'Csrwzx',
+        component: () => import('@/views/csgl/csrwzx/index'),
+        meta: { title: 'Csrwzx', icon: '' }
+      },
+      {
+        path: 'mbpz',
+        name: 'Mbpz',
+        component: () => import('@/views/csgl/mbpz/index'),
+        meta: { title: 'Mbpz', icon: '' }
+      }
+    ]
+  },
+
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
