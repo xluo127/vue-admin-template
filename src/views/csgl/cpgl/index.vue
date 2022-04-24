@@ -1,5 +1,5 @@
 <template>
   <div class="about">
-    <h1>模板配置</h1>
+    <h1>产品管理</h1>
   </div>
 </template>

@@ -1,24 +1,21 @@
-const Koa = require("koa");
-const parser = require("koa-parser"); //获取post请求数据
-const router = require("koa-router")(); //设置路由
-const cors = require('koa2-cors'); //允许跨域
-const app = new Koa();
+const Koa = require('koa')
+const parser = require('koa-parser') // 获取post请求数据
+const router = require('koa-router')() // 设置路由
+const cors = require('koa2-cors') // 允许跨域
+const app = new Koa()
 
-app.use(cors());
-app.use(parser());
-app.use(router.routes());
+app.use(cors())
+app.use(parser())
+app.use(router.routes())
 // app.use(function(req, res, next) { // 跨域?
 //     res.header("Access-Control-Allow-Origin", "*");
 //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //     next();
 //   });
 
-
-//模拟数据库
-const fruitList = ["香蕉", "苹果", "鸭梨"];
-const TaskList = [{a1:1,a2:2,a3:3}];
-
-
+// 模拟数据库
+// const fruitList = ['香蕉', '苹果', '鸭梨']
+// const TaskList = [{ a1: 1, a2: 2, a3: 3 }]
 
 // //get方法：获取水果列表
 // router.get("/fruits", async ctx => {
@@ -38,5 +35,5 @@ const TaskList = [{a1:1,a2:2,a3:3}];
 // })
 
 app.listen(3000, () => {
-    console.log("server is running")
+  console.log('server is running')
 })
