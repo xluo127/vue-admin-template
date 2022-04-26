@@ -93,6 +93,74 @@
         </el-col>
       </el-row>
     </div>
+    <!-- 表格 -->
+    <div class="pl" style="margin-top:20px">
+      <el-table
+        :data="tableData"
+        border
+        style="width: 100%"
+      >
+        <el-table-column
+          fixed
+          prop="date"
+          label="序号"
+          width="80"
+        />
+        <el-table-column
+          prop="name"
+          label="任务信息"
+          width="160"
+        />
+        <el-table-column
+          prop="province"
+          label="产品分类"
+          width="120"
+        />
+        <el-table-column
+          prop="city"
+          label="测试分类"
+          width="120"
+        />
+        <el-table-column
+          prop="address"
+          label="用户"
+          width="90"
+        />
+        <el-table-column
+          prop="zip"
+          label="时间"
+          width="120"
+        />
+        <el-table-column
+          prop="zip"
+          label="状态"
+          width="220"
+        />
+        <el-table-column
+          fixed="right"
+          label="操作"
+          width="100"
+        >
+          <template slot-scope="scope">
+            <el-button type="text" size="small" @click="handleClick(scope.row)">查看</el-button>
+            <el-button type="text" size="small">编辑</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
+    <!-- 分页 -->
+    <div>
+      <el-pagination
+        class="fixright"
+        :current-page="currentPage4"
+        :page-sizes="[100, 200, 300, 400]"
+        :page-size="100"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="400"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
+    </div>
   </div>
 
 </template>
@@ -115,6 +183,7 @@ export default {
 <style scoped>
 .pl {
   padding-left: 3%;
+  padding-right: 3%;
 }
 .info {
   height: 70px;
@@ -163,6 +232,6 @@ export default {
 }
 .fixright {
   position: absolute;
-  right: 0px;
+  right: 2%;
 }
 </style>
