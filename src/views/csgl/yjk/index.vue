@@ -18,8 +18,15 @@
       </el-form>
     </div>
     <!-- 动态元件 -->
-    <div class="pl dynanmic" :style="{'--height':TotalHeight}">
-      1
+    <!-- <div v-for="(item, index) in yjk" :key="index" class="pl dynanmic container" :style="{'--height':TotalHeight}"> -->
+    <div v-for="(item, index) in yjk" :key="index" class="pl container">
+      <div v-if="index == 0" class="pl1">{{ item.name }}</div>
+      <div v-if="index != 0" class="pl2"> {{ index }} : {{ item.name }}</div>
+    <!-- 遍历数组 -->
+    <!-- <div v-for="(item, index) in arr" :key="index">
+      <h1>item {{ item }}</h1>
+      <h1>index {{ index }}</h1>
+    </div> -->
     </div>
   </div>
 </template>
@@ -54,6 +61,7 @@ export default {
   },
   created() {
     this.getYjkLength()
+    this.yjk.unshift({ name: '+ 新增元件', desciption: 'button' })
     // alert(this.LenghtOfYjk)
   },
   methods: {
@@ -65,16 +73,49 @@ export default {
 </script>
 
 <style scoped>
-.dynanmic {
-  height: var(--TotalHeight);
+* {
+  margin-right: 1%;
 }
+/* .dynanmic {
+  height: var(--TotalHeight);
+} */
 .pl {
+  margin-left: 1%;
   padding-left: 1%;
   padding-right: 1%;
-  border: 2px solid blue;
+  /* border: 2px solid blue; */
 }
 .form {
   padding-left: 3%;
   padding-top: 30px;
+}
+.container {
+  display: inline-grid;
+  grid-row-gap: 15px;
+  grid-column-gap: 20px;
+  grid-template-columns: repeat(3, 33.3%);
+  grid-template-rows: repeat(3, 200px);
+  width: 326px;
+  height: 184px;
+}
+.pl1 {
+  width: 306px;
+  height: 174px;
+  border: 2px dashed rgba(0, 0, 0, 0.427);
+  font-family: "Microsoft Tai Le Regular", "Microsoft Tai Le";
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.427);
+  line-height: 20px;
+  text-align: center;
+  padding-top: 50%;
+}
+.pl2 {
+  width: 306px;
+  height: 174px;
+  border: 1px solid rgba(0, 0, 0, 0.427);
+  text-align: center;
+  padding-top: 50%;
 }
 </style>

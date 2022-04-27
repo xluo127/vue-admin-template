@@ -72,7 +72,7 @@
     </div>
     <!-- 筛选和操作任务 -->
     <div class="pl">
-      <el-row :gutter="20">
+      <el-row>
         <el-col :span="10">
           <div>
             <el-button type="primary">主要按钮</el-button>
@@ -80,9 +80,9 @@
             <el-button style="color:black">默认按钮</el-button>
           </div>
         </el-col>
-        <el-col :span="4"><div /></el-col>
+        <el-col :span="4" />
         <el-col :span="10">
-          <div class="fixright">
+          <div class="fixright1">
             <el-radio-group v-model="StateOfTasks">
               <el-radio-button label="全部" />
               <el-radio-button label="进行中" />
@@ -101,41 +101,44 @@
         style="width: 100%"
       >
         <el-table-column
-          fixed
-          prop="date"
+          prop="id"
           label="序号"
           width="80"
         />
         <el-table-column
-          prop="name"
+          prop="info"
           label="任务信息"
           width="160"
         />
         <el-table-column
-          prop="province"
+          prop="ptype"
           label="产品分类"
           width="120"
         />
         <el-table-column
-          prop="city"
+          prop="ttype"
           label="测试分类"
           width="120"
         />
         <el-table-column
-          prop="address"
+          prop="user"
           label="用户"
           width="90"
         />
         <el-table-column
-          prop="zip"
+          prop="time"
           label="时间"
-          width="120"
+          width="180"
         />
         <el-table-column
-          prop="zip"
+          prop="state"
           label="状态"
-          width="220"
-        />
+          width="240"
+        >
+          <template slot-scope="scope">
+            <el-progress v-if="scope.row.state.type === 'pause'" :percentage="scope.row.state.percentage" />
+          </template>
+        </el-table-column>
         <el-table-column
           fixed="right"
           label="操作"
@@ -174,7 +177,15 @@ export default {
         type: '',
         template: ''
       },
-      StateOfTasks: '全部'
+      StateOfTasks: '全部',
+      tableData: [
+        { id: 1, info: '紧急任务', ptype: '智能音箱', ttype: '语音交互', user: '交互测试-朱洁', time: '开始时间：2022-3-25 14：00', state: { percentage: '60', type: 'pause' }}
+      ]
+    }
+  },
+  methods: {
+    test1(aaa) {
+      console.log(aaa)
     }
   }
 }
@@ -233,5 +244,9 @@ export default {
 .fixright {
   position: absolute;
   right: 2%;
+}
+.fixright1 {
+  position: absolute;
+  right: 0%;
 }
 </style>
