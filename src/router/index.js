@@ -171,7 +171,16 @@ export const constantRoutes = [
         path: 'csrwzx',
         name: 'Csrwzx',
         component: () => import('@/views/csgl/csrwzx/index'),
-        meta: { title: '测试任务执行', icon: '' }
+        meta: { title: '测试任务执行', icon: '' },
+        children: [
+          {
+            path: 'xjrw',
+            name: 'Xjrw',
+            component: () => import('@/views/csgl/csrwzx/xjrw/index'),
+            meta: { title: '新增任务' },
+            hidden: true
+          }
+        ]
       },
       {
         path: 'mbpz',
