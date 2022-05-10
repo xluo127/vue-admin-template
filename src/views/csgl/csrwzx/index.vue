@@ -5,7 +5,7 @@
       <div>
         <el-divider />
         <el-row>
-          <el-col :span="7">
+          <el-col :span="8">
             <div class="info">
               <div class="upinfo">
                 <p class="upp">待办任务</p>
@@ -16,10 +16,10 @@
             </div>
           </el-col>
           <!-- 自行写分割线 -->
-          <el-col :span="1">
+          <!-- <el-col :span="1">
             <div class="info divider" />
-          </el-col>
-          <el-col :span="7">
+          </el-col> -->
+          <el-col :span="8">
             <div class="info">
               <div class="upinfo">
                 <p class="upp">本周任务平均处理时间</p>
@@ -29,10 +29,10 @@
               </div>
             </div>
           </el-col>
-          <el-col :span="1">
+          <!-- <el-col :span="1">
             <div class="info divider" />
-          </el-col>
-          <el-col :span="7">
+          </el-col> -->
+          <el-col :span="8">
             <div class="info">
               <div class="upinfo">
                 <p class="upp">本周完成任务数</p>
@@ -106,32 +106,32 @@
           <el-table-column
             prop="id"
             label="序号"
-            width="80"
+            :width="screenWidth*TableWidths.id"
           />
           <el-table-column
             prop="info"
             label="任务信息"
-            width="160"
+            :width="screenWidth*TableWidths.info"
           />
           <el-table-column
             prop="ptype"
             label="产品分类"
-            width="120"
+            :width="screenWidth*TableWidths.ptype"
           />
           <el-table-column
             prop="ttype"
             label="测试分类"
-            width="120"
+            :width="screenWidth*TableWidths.ttype"
           />
           <el-table-column
             prop="user"
             label="用户"
-            width="90"
+            :width="screenWidth*TableWidths.user"
           />
           <el-table-column
             prop="time"
             label="时间"
-            width="180"
+            :width="screenWidth*TableWidths.time"
           >
             <template slot-scope="scope">
               开始时间:<br>
@@ -141,7 +141,7 @@
           <el-table-column
             prop="state"
             label="状态"
-            width="240"
+            :width="screenWidth*TableWidths.state"
           >
             <template slot-scope="scope">
               <el-progress v-if="scope.row.state.type === 'pause'" :percentage="scope.row.state.percentage" />
@@ -150,7 +150,7 @@
           <el-table-column
             fixed="right"
             label="操作"
-            width="130"
+            :width="screenWidth*TableWidths.modify"
           >
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="handleClick(scope.row)">查看结果</el-button>
@@ -180,7 +180,7 @@
   </div>
 </template>
 <script>
-
+// import elementResizeDetectorMaker from 'element-resize-detector'
 export default {
   data() {
     return {
@@ -192,13 +192,40 @@ export default {
       },
       StateOfTasks: '全部',
       tableData: [
-        { id: 1, info: '紧急任务', ptype: '智能音箱', ttype: '语音交互', user: '交互测试-朱洁', time: '2022-3-25 14:00', state: { percentage: '60', type: 'pause' }}
-      ]
+        { id: 1, info: '紧急任务', ptype: '智能音箱', ttype: '语音交互', user: '交互测试-朱洁', time: '2022-3-25 14:00', state: { percentage: 60, type: 'pause' }}
+      ],
+      TableWidths: { id: 0.05, info: 0.15, ptype: 0.11, ttype: 0.1, user: 0.07, time: 0.11, state: 0.2, modify: 0.1 },
+      erd: null,
+      windowHeight: null,
+      windowWidth: null,
+      TotalWidth: 0,
+      timer: null,
+      screenWidth: document.body.clientWidth, // 屏幕宽
+      screeHeight: document.body.clientHeight // 屏幕高
     }
   },
+  // computed: {
+  //   IdWidth: function() {
+  //     return (this.TableWidths.id * this.windowWidth).toString()
+  //   }
+  // },
+  // watch: {
+  //   screenWidth(newVal, oldVal) {
+  //     // console.log(oldVal, newVal)
+  //   },
+  //   deep: true
+  // },
+  mounted() {
+    this.timer = setInterval(this.windowWidthChange, 100) // 每0.1秒刷新一次
+  },
+  beforeDestroy() {
+    clearInterval(this.timer)
+  },
   methods: {
-    test1(aaa) {
-      console.log(aaa)
+    windowWidthChange() {
+      this.screenWidth = document.body.clientWidth
+      this.screeHeight = document.body.clientHeight
+      // console.log(this.screenWidth, this.screeHeight)
     }
   }
 }
@@ -238,7 +265,7 @@ export default {
   font-family: "DejaVu Sans";
 }
 .divider {
-  width: 1px;
+  width: 10px;
   /* border: 1px solid #8d8d8d; */
   background-color: #d1c8c8;
 }

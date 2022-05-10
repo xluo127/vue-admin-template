@@ -19,7 +19,14 @@
     </div>
     <!-- 按钮 -->
     <div class="pl">
-      <el-button type="primary">+ 添加产品</el-button>
+      <el-row>
+        <el-col :span="12">
+          <el-button type="primary">{{ ButtonName1 }}</el-button>
+        </el-col>
+        <el-col :span="12">
+          <el-button class="fixright1" type="primary">{{ ButtonName2 }}</el-button>
+        </el-col>
+      </el-row>
     </div>
     <!-- 表格 -->
     <div class="pl" style="margin-top:20px">
@@ -30,24 +37,24 @@
       >
         <el-table-column
           fixed
-          prop="date"
+          prop="id"
           label="序号"
-          width="130"
+          :width="screenWidth*TableWidths.id"
         />
         <el-table-column
           prop="name"
           label="产品名称"
-          width="260"
+          :width="screenWidth*TableWidths.name"
         />
         <el-table-column
-          prop="province"
+          prop="type"
           label="产品分类"
-          width="250"
+          :width="screenWidth*TableWidths.type"
         />
         <el-table-column
-          prop="address"
+          prop="time"
           label="创建时间"
-          width="190"
+          :width="screenWidth*TableWidths.time"
           sortable
         />
         <el-table-column
@@ -70,7 +77,7 @@
         :page-sizes="[100, 200, 300, 400]"
         :page-size="100"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="400"
+        :total="1000"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
       />
@@ -83,11 +90,33 @@
 export default {
   data() {
     return {
+      ButtonName1: `+  添加产品`,
+      ButtonName2: '产品分类管理',
       formInline: {
         keyword: '',
         type: ''
       },
-      StateOfTasks: '全部'
+      StateOfTasks: '全部',
+      tableData: [
+        { id: 1, name: '111', type: '111', time: 111 }
+      ],
+      TableWidths: { id: 0.08, name: 0.2, type: 0.2, time: 0.25 },
+      timer: null,
+      screenWidth: document.body.clientWidth, // 屏幕宽
+      screeHeight: document.body.clientHeight // 屏幕高
+    }
+  },
+  mounted() {
+    this.timer = setInterval(this.windowWidthChange, 100) // 每0.1秒刷新一次
+  },
+  beforeDestroy() {
+    clearInterval(this.timer)
+  },
+  methods: {
+    windowWidthChange() {
+      this.screenWidth = document.body.clientWidth
+      this.screeHeight = document.body.clientHeight
+      // console.log(this.screenWidth, this.screeHeight)
     }
   }
 }
@@ -105,5 +134,9 @@ export default {
 .fixright {
   position: absolute;
   right: 2%;
+}
+.fixright1 {
+  position: absolute;
+  right: 0%;
 }
 </style>
